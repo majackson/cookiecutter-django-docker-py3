@@ -1,0 +1,7 @@
+*.pyc
+.cache
+.idea
+
+static/
+
+production.env
