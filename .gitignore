@@ -1,6 +1,7 @@
 *.pyc
 .cache
 .idea
+.DS_Store
 
 static/
 
