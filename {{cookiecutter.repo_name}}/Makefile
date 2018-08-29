@@ -17,6 +17,10 @@ shell:
 migrate:
 	DJANGO_CMD=migrate make django	
 
+zappa:
+	make update-time && \
+	docker-compose run --name {{cookiecutter.repo_name}}_api_zappa --rm api bash -c "source ~/.venvs/{{cookiecutter.repo_name}}venv/bin/activate && zappa ${ZAPPA_CMD}"
+
 bootstrap:
 	touch production.env && \
 	make dev-build staticfiles wait-for-db migrate
