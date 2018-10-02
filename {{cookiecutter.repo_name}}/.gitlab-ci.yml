@@ -1,0 +1,17 @@
+image: docker
+
+services:
+  - docker:dind
+
+before_script:
+  - apk add --no-cache python3 make
+  - pip3 install flake8 docker-compose
+  - cp -u production.env.template production.env
+
+lint:
+  script:
+    - flake8
+
+unit-test:
+  script:
+    - make test
