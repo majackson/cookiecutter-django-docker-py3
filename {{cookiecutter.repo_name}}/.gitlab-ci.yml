@@ -1,17 +1,35 @@
 image: docker
 
+stages:
+  - lint
+  - unit-test
+  - deploy
+
 services:
   - docker:dind
 
 before_script:
-  - apk add --no-cache python3 make
-  - pip3 install flake8 docker-compose
-  - cp -u production.env.template production.env
+  - apk add --no-cache python2=3.6.6-r0 make
+  - pip2 install flake8 docker-compose awscli
+  - cat production.env.template | grep -v ACCESS_KEY > production.env
 
-lint:
+Lint:
+  stage: lint
   script:
     - flake8
 
-unit-test:
+Unit Test:
+  stage: unit-test
   script:
     - make test
+
+Deploy:
+  stage: deploy
+  when: manual
+  only: [master]
+  allow_failure: true
+  environment:
+    name: production
+  script:
+    - env | grep AWS >> production.env
+    - ZAPPA_CMD="update production" make zappa

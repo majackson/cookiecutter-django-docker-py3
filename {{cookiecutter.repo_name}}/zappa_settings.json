@@ -1,0 +1,64 @@
+{
+    "production": {
+        "project_name": "{{ cookiecutter.project_name }}",
+        "app_function": "{{ cookiecutter.repo_name }}.run.application",
+        "debug": false,
+        "s3_bucket": "{{ cookiecutter.repo_name }}-zappa",
+        "environment_variables": {
+            "PRODUCTION": "TRUE",
+            "ENVIRONMENT": "production",
+            "SENTRY_DSN": ""
+        },
+        "timeout_seconds": 90,
+        "tags": {
+            "Name": "{{ cookiecutter.repo_name }}-production",
+            "Application": "Shinobi",
+            "ProductService": "{{ cookiecutter.project_name }}",
+            "Environment": "production",
+            "CreatedBy": "Zappa",
+            "ManagedBy": "Zappa",
+            "Brand": "SilverRail",
+            "Team": "ABT",
+            "Owner": "matt.jackson@silverrailtech.com",
+            "CostCenter": "67001",
+            "Customer": "TM_NULL",
+            "Retention": "Permanent",
+            "TagSchema": "srt_v1",
+            "DataClassification": "HighlySensitive",
+            "AssetProtectionLevel": "6",
+            "Compliance": "-"
+        },
+        "vpc_config": {
+            "SubnetIds": [],
+            "SecurityGroupIds": []
+        },
+        "exclude": ["tests"],
+        "extra_permissions": [{
+            "Effect": "Allow",
+            "Action": ["execute-api:Invoke", "execute-api:InvalidateCache"],
+            "Resource": ["arn:aws:execute-api:*:*:*/*/*"]
+        }]
+    },
+    "dev": {
+        "project_name": "{{ cookiecutter.project_name }}",
+        "app_function": "{{ cookiecutter.repo_name }}.run.application",
+        "debug": true,
+        "s3_bucket": "{{ cookiecutter.repo_name }}-zappa",
+        "environment_variables": {
+            "PRODUCTION": "TRUE",
+            "ENVIRONMENT": "dev",
+            "SENTRY_DSN": ""
+        },
+        "timeout_seconds": 90,
+        "vpc_config": {
+            "SubnetIds": [],
+            "SecurityGroupIds": []
+        },
+        "exclude": ["tests"],
+        "extra_permissions": [{
+            "Effect": "Allow",
+            "Action": ["execute-api:Invoke", "execute-api:InvalidateCache"],
+            "Resource": ["arn:aws:execute-api:*:*:*/*/*"]
+        }]
+    }
+}

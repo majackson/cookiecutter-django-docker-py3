@@ -3,7 +3,7 @@ dev-build:
 	docker-compose build
 
 update-time:
-	docker-machine ssh default "sudo ntpclient -s -h pool.ntp.org"
+	which docker-machine > /dev/null && docker-machine ssh default "sudo ntpclient -s -h pool.ntp.org"; true
 
 django:
 	docker-compose run --service-ports --name {{cookiecutter.repo_name}}_api_django --rm api bash -c "source ~/.venvs/{{cookiecutter.repo_name}}venv/bin/activate && python manage.py ${DJANGO_CMD}"
