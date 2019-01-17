@@ -22,8 +22,8 @@ zappa:
 	docker-compose run --name {{cookiecutter.repo_name}}_api_zappa --rm api bash -c "source ~/.venvs/{{cookiecutter.repo_name}}venv/bin/activate && zappa ${ZAPPA_CMD}"
 
 bootstrap:
-	cp -n production.env.template production.env && \
-	make dev-build staticfiles wait-for-db migrate
+	cp -n production.env.template production.env; \
+	ADMIN=TRUE make dev-build staticfiles wait-for-db migrate
 
 run:
 	echo "Server will be coming up at http://`docker-machine ip`/" && \
