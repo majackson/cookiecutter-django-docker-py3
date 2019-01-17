@@ -1,5 +1,9 @@
 image: docker
 
+stages:
+  - lint
+  - unit-test
+
 services:
   - docker:dind
 
@@ -8,10 +12,12 @@ before_script:
   - pip3 install flake8 docker-compose
   - cp -u production.env.template production.env
 
-lint:
+Lint:
+  stage: lint
   script:
     - flake8
 
-unit-test:
+Unit Test:
+  stage: unit-test
   script:
     - make test
