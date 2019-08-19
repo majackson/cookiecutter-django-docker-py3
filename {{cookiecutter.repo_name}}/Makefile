@@ -3,7 +3,7 @@ dev-build:
 	docker-compose build
 
 update-time:
-	docker-machine ssh default "sudo ntpclient -s -h pool.ntp.org"
+	which docker-machine > /dev/null && docker-machine ssh default "sudo ntpd -p pool.ntp.org -q"; true
 
 django:
 	docker-compose run --service-ports --name {{cookiecutter.repo_name}}_api_django --rm api bash -c "source ~/.venvs/{{cookiecutter.repo_name}}venv/bin/activate && python manage.py ${DJANGO_CMD}"
@@ -26,17 +26,11 @@ bootstrap:
 	make dev-build staticfiles wait-for-db migrate
 
 run:
-	echo "Server will be coming up at http://`docker-machine ip`/" && \
+	echo "Server will be coming up at http://`docker-machine ip`/"; true && \
 	ADMIN=TRUE DEBUG=TRUE docker-compose up
 
 serve:
-	docker-compose start
-
-serve-restart:
-	docker-compose restart
-
-serve-stop:
-	docker-compose stop
+	docker-compose up -d
 
 test:
 	docker-compose run --name {{cookiecutter.repo_name}}_api_tests --rm api bash -c 'source ~/.venvs/{{cookiecutter.repo_name}}venv/bin/activate && py.test --strict $${TEST_ARGS:-"tests/"}'

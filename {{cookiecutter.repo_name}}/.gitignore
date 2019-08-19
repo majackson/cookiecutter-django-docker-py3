@@ -1,6 +1,10 @@
 *.pyc
+*.swp
+*.swo
+
 .cache
 .idea
+.DS_Store
 
 static/
 

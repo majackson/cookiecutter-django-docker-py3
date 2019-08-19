@@ -1,13 +1,15 @@
 import os
 
+from distutils.util import strtobool
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '9h7!s%##^!7!8tzbl!6dur!4w_3@98d0nk2%z^)y#6p#-a(n+o'
 
-DEBUG = bool(os.environ.get('DEBUG', False))
-ADMIN = bool(os.environ.get('ADMIN', False))
-PRODUCTION = bool(os.environ.get('PRODUCTION', False))
+DEBUG = bool(strtobool(os.environ.get('DEBUG', 'False')))
+ADMIN = bool(strtobool(os.environ.get('ADMIN', 'False')))
+PRODUCTION = bool(strtobool(os.environ.get('PRODUCTION', 'False')))
 
 if PRODUCTION:
     DEBUG = False

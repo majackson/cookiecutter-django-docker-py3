@@ -6,7 +6,7 @@ AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
     'Cache-Control': 'max-age=94608000',
 }
 
-AWS_DEFAULT_REGION = os.environ.get('AWS_DEFAULT_REGION')
+AWS_DEFAULT_REGION = os.environ.get('AWS_DEFAULT_REGION', 'eu-west-1')
 
 # S3 Config (staticfiles)
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
