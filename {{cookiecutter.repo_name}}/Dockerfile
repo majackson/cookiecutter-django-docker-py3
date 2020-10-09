@@ -1,9 +1,9 @@
-FROM python:3.6
+FROM python:3.8-slim
 ENV PYTHONUNBUFFERED 1
 
 # install packages
 RUN apt-get update
-RUN apt-get install -y netcat ntpdate
+RUN apt-get install -y netcat ntpdate build-essential
 RUN pip install virtualenv
 
 RUN mkdir /code
